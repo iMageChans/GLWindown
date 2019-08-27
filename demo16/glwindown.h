@@ -1,15 +1,20 @@
 #ifndef GLWINDOWN_H
 #define GLWINDOWN_H
 
-#include <QMainWindow>
+#include <QWidget>
+#include <QGLWidget>
 
-class GLWindown : public QMainWindow
+class QLWindown : public QGLWidget
 {
     Q_OBJECT
 
 public:
-    GLWindown(QWidget *parent = 0);
-    ~GLWindown();
+    QLWindown(QWidget *parent = nullptr);
+
+protected:
+    void initializeGL();
+    void resizeGL(int w, int h);
+    void paintGL();
 };
 
-#endif // GLWINDOWN_H
+#endif // QLWINDOWN_H

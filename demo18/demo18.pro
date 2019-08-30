@@ -31,12 +31,13 @@ SOURCES += \
 
 HEADERS += \
         glwindown.h \
-    utils.h
+    utils.h \
+    ggl.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    ../../../Downloads/timg.bmp
+RESOURCES += \
+    imgfile.qrc

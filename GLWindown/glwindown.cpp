@@ -1,6 +1,9 @@
 #include "glwindown.h"
-#include <glu.h>
+#include "ggl.h"
 #include "utils.h"
+#include "skybox.h"
+
+skybox box;
 
 GLWindown::GLWindown(QWidget *parent)
     : QGLWidget(parent)
@@ -27,26 +30,25 @@ void GLWindown::paintGL(){
     glClearColor(0.0f,0.0f,0.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture);
+    box.Darw();
+    glEnable(GL_DEPTH_TEST);
     glBegin(GL_QUADS);
-    glColor4ub(255,255,255,255);
-    glTexCoord2f(0.0f, 0.0f);glVertex3f(-0.1f,-0.1f,-0.4f);
-    glTexCoord2f(1.0f, 0.0f);glVertex3f(0.1f,-0.1f,-0.4f);
-    glTexCoord2f(1.0f, 1.0f);glVertex3f(0.1f,0.1f,-0.4f);
-    glTexCoord2f(0.0f, 1.0f);glVertex3f(-0.1f,0.1f,-0.4f);
+    glColor4ub(0,50,200,255);
+    glVertex3f(-0.1f, -0.1f, 0.6f);
+    glVertex3f(0.1f, -0.1f, 0.6f);
+    glVertex3f(0.1f, 0.1f, 0.6f);
+    glVertex3f(-0.1f, 0.1f, 0.6f);
     glEnd();
 }
 
 void GLWindown::loadGLTextures(){
-    QImage tex, buf;
-    buf.load( ":/img/timg.bmp");
-    tex = QGLWidget::convertToGLFormat(buf);
-    glBindTexture( GL_TEXTURE_2D, texture);
-    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, tex.width(), tex.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.bits());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    const char* imageDir[6];
+    imageDir[0] = ":/new/prefix/back.bmp";
+    imageDir[1] = ":/new/prefix/bottom.bmp";
+    imageDir[2] = ":/new/prefix/front.bmp";
+    imageDir[3] = ":/new/prefix/left.bmp";
+    imageDir[4] = ":/new/prefix/right.bmp";
+    imageDir[5] = ":/new/prefix/top.bmp";
 
+    box.Init(imageDir, texture);
 }

@@ -27,14 +27,19 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         glwindown.cpp \
-    utils.cpp
+    utils.cpp \
+    skybox.cpp
 
 HEADERS += \
         glwindown.h \
     ggl.h \
-    utils.h
+    utils.h \
+    skybox.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    img.qrc

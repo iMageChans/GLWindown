@@ -1,5 +1,5 @@
 #include "glwindown.h"
-#include <glu.h>
+#include "ggl.h"
 #include "utils.h"
 
 GLWindown::GLWindown(QWidget *parent)

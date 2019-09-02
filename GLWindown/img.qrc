@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/new/prefix">
+        <file>back.bmp</file>
+        <file>bottom.bmp</file>
+        <file>front.bmp</file>
+        <file>left.bmp</file>
+        <file>right.bmp</file>
+        <file>top.bmp</file>
+    </qresource>
+</RCC>

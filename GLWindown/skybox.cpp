@@ -2,15 +2,10 @@
 #include <QGLWidget>
 #include "utils.h"
 
-skybox::skybox(QObject *parent) : QObject(parent)
-{
 
-}
-
-
-void skybox::Init(const char* imageDir[], GLuint texture){
+void skybox::Init(const char* imageDir[]){
     for(int i = 0; i < 6; i++){
-        initializeImage(imageDir[i], i, texture);
+        initializeImage(imageDir[i], i);
     }
     mFastDrawCall = CreateDisplayList([this]()->void{ DarwCommand(); });
 }
@@ -28,8 +23,8 @@ void skybox::DarwCommand(){
 
 }
 
-void skybox::initializeImage(const char* imageDir, int &index, GLuint texture){
-    mTexture[index] = CreateTexture2DFromBMP(imageDir, texture);
+void skybox::initializeImage(const char* imageDir, int &index){
+    mTexture[index] = CreateTexture2DFromBMP(imageDir);
 }
 
 void skybox::Darw(){

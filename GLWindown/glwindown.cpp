@@ -27,7 +27,7 @@ void GLWindown::resizeGL(int w, int h){
 
 
 void GLWindown::paintGL(){
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    glClearColor(255.0f,255.0f,255.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     box.Darw();
@@ -50,5 +50,5 @@ void GLWindown::loadGLTextures(){
     imageDir[4] = ":/new/prefix/right.bmp";
     imageDir[5] = ":/new/prefix/top.bmp";
 
-    box.Init(imageDir, texture);
+    box.Init(imageDir);
 }

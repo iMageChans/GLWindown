@@ -6,18 +6,20 @@ const QImage DecodeBMP(const char* bmpPath){
    return img;
 }
 
-GLuint CreateTexture2DFromBMP(const char* bmpPath, GLuint texture){
+GLuint CreateTexture2DFromBMP(const char* bmpPath){
     const QImage bmpFlieContent = DecodeBMP(bmpPath);
     if(bmpFlieContent.isNull()){
         return 0;
     }
 
-    return  CreateTexture2D(bmpFlieContent, GL_RGB, texture);
+    return  CreateTexture2D(bmpFlieContent, GL_RGB);
 }
 
-GLuint CreateTexture2D(QImage pixelData, GLenum type, GLuint texture){
+GLuint CreateTexture2D(QImage pixelData, GLenum type){
+    GLuint texture;
+    glGenTextures(1, &texture);
     glBindTexture( GL_TEXTURE_2D, texture);
-    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, pixelData.width(), pixelData.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelData.bits());
+    glTexImage2D( GL_TEXTURE_2D, 0, type, pixelData.width(), pixelData.height(), 0, type, GL_UNSIGNED_BYTE, pixelData.bits());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

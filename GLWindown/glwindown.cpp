@@ -1,9 +1,6 @@
 #include "glwindown.h"
 #include "ggl.h"
 #include "utils.h"
-#include "skybox.h"
-
-skybox box;
 
 GLWindown::GLWindown(QWidget *parent)
     : QGLWidget(parent)
@@ -11,25 +8,23 @@ GLWindown::GLWindown(QWidget *parent)
 }
 
 void GLWindown::initializeGL(){
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glShadeModel(GL_SMOOTH);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glShadeModel(GL_MODELVIEW);
     glClearDepth(1.0);
-    glEnable(GL_DEPTH_TEST);
     loadGLTextures();
 
 }
 
 void GLWindown::resizeGL(int w, int h){
     glMatrixMode(GL_PROJECTION);
-    gluPerspective(60.0,1920.0/1080.0,0.1,1000);
+    gluPerspective(50.0f,800.0f/600.0f,0.1f,1000.0f);
     glMatrixMode(GL_MODELVIEW);
 }
 
 
 void GLWindown::paintGL(){
-    glClearColor(255.0f,255.0f,255.0f,1.0f);
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     box.Darw();
     glEnable(GL_DEPTH_TEST);
     glBegin(GL_QUADS);
@@ -49,6 +44,14 @@ void GLWindown::loadGLTextures(){
     imageDir[3] = ":/new/prefix/left.bmp";
     imageDir[4] = ":/new/prefix/right.bmp";
     imageDir[5] = ":/new/prefix/top.bmp";
-
     box.Init(imageDir);
 }
+
+const QImage DecodeBMP(const char* bmpPath){
+    QImage img, buf;
+    buf.load(bmpPath);
+    img = QGLWidget::convertToGLFormat(buf);
+    return img;
+}
+
+

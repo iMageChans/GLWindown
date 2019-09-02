@@ -2,7 +2,6 @@
 #include <QGLWidget>
 #include "utils.h"
 
-
 void skybox::Init(const char* imageDir[]){
     for(int i = 0; i < 6; i++){
         initializeImage(imageDir[i], i);
@@ -11,9 +10,8 @@ void skybox::Init(const char* imageDir[]){
 }
 
 void skybox::DarwCommand(){
-
-    glDisable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
+    glDisable(GL_DEPTH_TEST);
     setQuadsBack(mTexture[0]);
     setQuadsBottom(mTexture[1]);
     setQuadsFront(mTexture[2]);

@@ -11,6 +11,7 @@ class GLWindown : public QGLWidget
 public:
     GLWindown(QWidget *parent = nullptr);
     GLuint texture;
+    GLuint textures[6];
 
 protected:
     void initializeGL();

@@ -1,18 +1,12 @@
 #include "utils.h"
 
-
-const QImage DecodeBMP(const char* bmpPath){
-   const QImage img = QImage(bmpPath).mirrored();
-   return img;
-}
-
 GLuint CreateTexture2DFromBMP(const char* bmpPath){
     const QImage bmpFlieContent = DecodeBMP(bmpPath);
     if(bmpFlieContent.isNull()){
         return 0;
     }
 
-    return  CreateTexture2D(bmpFlieContent, GL_RGB);
+    return  CreateTexture2D(bmpFlieContent, GL_RGBA);
 }
 
 GLuint CreateTexture2D(QImage pixelData, GLenum type){
@@ -41,8 +35,8 @@ void setQuadsFront(GLuint texture){
     glBegin(GL_QUADS);
     glColor4ub(255,255,255,255);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, 0.5f, 0.5f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-0.5f, -0.5f, -0.5f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-0.5f, 0.5f, -0.5f);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, 0.5f, 0.5f);
     glEnd();
 
@@ -52,10 +46,10 @@ void setQuadsLeft(GLuint texture){
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_QUADS);
     glColor4ub(255,255,255,255);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, 0.5f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(0.5f, -0.5f, -0.5f);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, 0.5f);
     glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, 0.5f, 0.5f);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, 0.5f, 0.5f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(0.5f, 0.5f, -0.5f);
     glEnd();
 
 }
@@ -64,9 +58,9 @@ void setQuadsRight(GLuint texture){
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_QUADS);
     glColor4ub(255,255,255,255);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, 0.5f, 0.5f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, -0.5f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, -0.5f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, -0.5f, 0.5f);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, 0.5f, 0.5f);
     glEnd();
 
@@ -78,8 +72,8 @@ void setQuadsTop(GLuint texture){
     glColor4ub(255,255,255,255);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, 0.5f);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, 0.5f, 0.5f);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, 0.5f, 0.5f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, -0.5f, -0.5f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, -0.5f, -0.5f);
     glEnd();
 
 }
@@ -88,10 +82,10 @@ void setQuadsBottom(GLuint texture){
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_QUADS);
     glColor4ub(255,255,255,255);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, 0.5f, 0.5f);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, 0.5f, 0.5f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(0.5f, -0.5f, 0.5f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-0.5f, -0.5f, 0.5f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-0.5f, 0.5f, 0.5f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(0.5f, 0.5f, 0.5f);
     glEnd();
 
 }
@@ -100,9 +94,9 @@ void setQuadsBack(GLuint texture){
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_QUADS);
     glColor4ub(255,255,255,255);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, 0.5f);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, 0.5f, 0.5f);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, 0.5f, 0.5f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5f, -0.5f, -0.5f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5f, -0.5f, -0.5f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5f, 0.5f, -0.5f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5f, 0.5f, -0.5f);
     glEnd();
 }

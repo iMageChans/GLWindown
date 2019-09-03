@@ -5,14 +5,13 @@
 GLWindown::GLWindown(QWidget *parent)
     : QGLWidget(parent)
 {
+
 }
 
 void GLWindown::initializeGL(){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glShadeModel(GL_MODELVIEW);
     glClearDepth(1.0);
     loadGLTextures();
-
 }
 
 void GLWindown::resizeGL(int w, int h){
@@ -26,14 +25,7 @@ void GLWindown::paintGL(){
     glLoadIdentity();
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     box.Darw();
-    glEnable(GL_DEPTH_TEST);
-    glBegin(GL_QUADS);
-    glColor4ub(0,50,200,255);
-    glVertex3f(-0.1f, -0.1f, 0.6f);
-    glVertex3f(0.1f, -0.1f, 0.6f);
-    glVertex3f(0.1f, 0.1f, 0.6f);
-    glVertex3f(-0.1f, 0.1f, 0.6f);
-    glEnd();
+    model.Draw();
 }
 
 void GLWindown::loadGLTextures(){
@@ -45,6 +37,8 @@ void GLWindown::loadGLTextures(){
     imageDir[4] = ":/new/prefix/right.bmp";
     imageDir[5] = ":/new/prefix/top.bmp";
     box.Init(imageDir);
+    model.Init("/Users/qie/Documents/GLWindown/GLWindown/Res/Sphere.obj");
+    model.mTexture = CreateTexture2DFromBMP("/Users/qie/Documents/GLWindown/GLWindown/Res/earth.bmp");
 }
 
 const QImage DecodeBMP(const char* bmpPath){
@@ -52,6 +46,25 @@ const QImage DecodeBMP(const char* bmpPath){
     buf.load(bmpPath);
     img = QGLWidget::convertToGLFormat(buf);
     return img;
+}
+
+unsigned char * LoadFileContent(const char *path, int &filesize) {
+    unsigned char*fileContent = nullptr;
+    filesize = 0;
+    FILE*pFile = fopen(path, "rb");
+    if (pFile) {
+        fseek(pFile, 0, SEEK_END);
+        int nLen = ftell(pFile);
+        if (nLen > 0) {
+            rewind(pFile);
+            fileContent = new unsigned char[nLen + 1];
+            fread(fileContent, sizeof(unsigned char), nLen, pFile);
+            fileContent[nLen] = '\0';
+            filesize = nLen;
+        }
+        fclose(pFile);
+    }
+    return fileContent;
 }
 
 

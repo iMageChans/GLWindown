@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGLWidget>
 #include "skybox.h"
+#include "model.h"
 
 class GLWindown : public QGLWidget
 {
@@ -11,10 +12,9 @@ class GLWindown : public QGLWidget
 
 public:
     GLWindown(QWidget *parent = nullptr);
-//    void initializeImage(const char* imageDir, int &index);
-//    GLuint mTexture[6];
     GLuint texture;
     skybox box;
+    Model model;
 
 protected:
     void initializeGL();

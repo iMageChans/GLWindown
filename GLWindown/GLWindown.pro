@@ -28,13 +28,15 @@ SOURCES += \
         main.cpp \
         glwindown.cpp \
     utils.cpp \
-    skybox.cpp
+    skybox.cpp \
+    model.cpp
 
 HEADERS += \
         glwindown.h \
     ggl.h \
     utils.h \
-    skybox.h
+    skybox.h \
+    model.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

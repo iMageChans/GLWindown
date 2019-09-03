@@ -14,5 +14,6 @@ const QImage DecodeBMP(const char* bmpPath);
 GLuint CreateTexture2D(QImage pixelData, GLenum type);
 GLuint CreateTexture2DFromBMP(const char* bmpPath);
 GLuint CreateDisplayList(std::function<void()>foo);
+unsigned char * LoadFileContent(const char*path, int&filesize);
 
 #endif // UTILS_H
